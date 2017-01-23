@@ -5,23 +5,35 @@
     <script src="data_generator.js"></script>
   </head>
   <body>
-    <script>
+    <!--<header>Twittler</header>
+    <div class="twittlerFeed"></div>-->
 
+    <script>
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
+        var $header = $('<h1>Twittler</h1>');
+        $header.prependTo($body);
+        var $twittlerFeed = $('<div class="twittlerFeed"></div>');
+        $twittlerFeed.appendTo($body);
 
+    //use code below and more to automatically add generated tweets
+
+        //initial tweet list (and altering of initial code provided)
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
+          var $tweet = $('<div class="tweet"></div>');
+          var timeString = tweet.created_at.toLocaleTimeString();
+          var dateString = tweet.created_at.toLocaleDateString();
+          $tweet.text('@' + tweet.user + ': ' + tweet.message + ' ' + dateString + ' ' + timeString);
+          $tweet.appendTo($twittlerFeed);
           index -= 1;
         }
 
       });
 
     </script>
+
   </body>
 </html>
