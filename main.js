@@ -13,11 +13,13 @@ $(document).ready(function(){
           var index = tweetArray.length - 1;
           while(index >= 0){
             var tweet = tweetArray[index];
-            var $tweet = $('<div class="tweet"><span class="user"></span><span class="message"></span></div>');
+            var $tweet = $('<div class="tweet"><span class="user"></span><span class="message"></span><span class ="time"></span></div>');
             var timeString = tweet.created_at.toLocaleTimeString();
             var dateString = tweet.created_at.toLocaleDateString();
+            var timeAgo = $.timeago(tweet.created_at);
             $tweet.children('.user').text('@' + tweet.user + ':');
-            $tweet.children('.message').text(tweet.message + ' ' + dateString + ' ' + timeString);
+            $tweet.children('.message').text(tweet.message + ' ');//dateString + ' ' + timeString);
+            $tweet.children('.time').text(timeAgo)
             $tweet.appendTo($twittlerFeed);
             index -= 1;
           }
@@ -55,17 +57,25 @@ $(document).ready(function(){
               generateInitialHomeFeed();
             }
           }
+
+          /*var isPaused2 = true;
+          function conditionalGenerateUserFeed(){
+            if(!isPaused2) {
+              return generateUserFeed.call(this, argument);
+            }
+          }*/
         // $(document).ready(function() {
           var setLive = setInterval(conditionalGenerateInitialHomeFeed, Math.random()*1500);
         //});
-       //if click on user
-        
-        
+          ///var setLive = setInterval(conditionalGenerateUserFeed, Math.random()*1500);
 
+
+       //if click on user
           $('body').on('click', '.utility', function(){
             //clearInterval(setUserLive);
             isPaused = false;
-            $('.utility').text('Update Feed');
+            //isPaused2 = true;
+            $('.utility').hide();
             generateInitialHomeFeed();
             //var setLive = setInterval(generateInitialHomeFeed, Math.random()*1500);
             ///generateHomeList();
@@ -73,11 +83,12 @@ $(document).ready(function(){
 
           $twittlerFeed.on('click', '.user', function(){
             isPaused = true;
+            //isPaused2 = false;
             //clearInterval(setLive);
             var text = $(this).text()
             var sn = text.slice(1, text.length-1);
             generateUserFeed(sn);
-            $('.utility').text('Home');
+            $('.utility').show().text('Back to Home');
             //var setUserLive = setInterval(generateUserFeed, Math.random()*1500)
             
           });
@@ -99,11 +110,10 @@ $(document).ready(function(){
 
         
 
-        /*
-         $('body').on('click', '.timer', function(){
+        
+         /*$('body').on('click', '.timer', function(){
             $('.timer').text('Auto Refresh Live Feed');
-            clearInterval(setLive);
-            generateInitialHomeFeed();
+            isPaused = true;
             ///generateHomeList();
           }) 
           */
