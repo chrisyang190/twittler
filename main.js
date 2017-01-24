@@ -1,12 +1,7 @@
 $(document).ready(function(){
-        /*var $body = $('body');
-        $body.html('');*/
-        /*var $header = $('<h1>Twittler</h1>');
-        $header.prependTo($body);
-        var $twittlerFeed = $('<div class="twittlerFeed"></div>');
-        $twittlerFeed.appendTo($body);*/
+
         var $twittlerFeed = $('.twittlerFeed');
-        //$twittlerFeed.html('');
+
     
         function generateTweetList(tweetArray){
           var index = tweetArray.length - 1;
@@ -28,12 +23,7 @@ $(document).ready(function(){
           $twittlerFeed.children('div').remove();
           generateTweetList(streams.home);
         }
-        /*
-        function generateHomeList() {
-          $twittlerFeed.children('div').remove();
-          generateTweetList(homeArray);
-        }
-        */
+
         function generateUserFeed(username){
           $twittlerFeed.children('div').remove();
           generateTweetList(streams.users[username]);
@@ -95,34 +85,6 @@ $(document).ready(function(){
           streams.users['visitor'].push(tweet); 
 
         });
-        
-
-        /*function updateFeed(){
-          var tweet = streams.home.shift();
-          var $tweet = $('<div class="tweet"><span class="user"></span><span class="message"></span></div>');
-          var timeString = tweet.created_at.toLocaleTimeString();
-          var dateString = tweet.created_at.toLocaleDateString();
-          $tweet.children('.user').text('@' + tweet.user + ':');
-          $tweet.children('.message').text(tweet.message + ' ' + dateString + ' ' + timeString);
-          $tweet.prependTo($twittlerFeed).hide().fadeIn(2000);
-          homeArray = homeArray.push(tweet);
-
-        } */
-
-
-        
-
-        
-         /*$('body').on('click', '.timer', function(){
-            $('.timer').text('Auto Refresh Live Feed');
-            isPaused = true;
-            ///generateHomeList();
-          }) 
-          */
-        
-
-        //click on username to see user timeline
-        //back button rendered only when filtered to user
 
  
       });
