@@ -2,6 +2,45 @@
 	text-align:center;
 }
 
+header{
+	
+}
+
+h1 {
+	font-family:Arial;
+	color: white;
+	height: 50px;
+	margin: 5px;
+	background: rgba(66, 142, 208, 0.81);
+	padding-top:20px;
+	padding-bottom:10px;
+}
 .utility {
-display: none;
+	display: none;
+}
+
+.write{
+	padding-top:10px;
+}
+.twittlerFeed {
+	margin: 15px 400px;
+    border: 1px solid rgb(12, 1, 1);
+    font-family: Arial;
+    font-size: 12px;
+    color: white;
+    background: #bf6c6c;
+}
+
+.tweet{
+	border-bottom: 1px solid rgba(0, 0, 0, 0.3)
+
+}
+.user{
+	cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.user:hover{
+	text-decoration: underline;
 }

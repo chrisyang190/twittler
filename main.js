@@ -12,13 +12,13 @@ $(document).ready(function(){
           var index = tweetArray.length - 1;
           while(index >= 0){
             var tweet = tweetArray[index];
-            var $tweet = $('<div class="tweet"><span class="user"></span><span class="message"></span><span class ="time"></span></div>');
+            var $tweet = $('<div class="tweet"><span class="user"></span><span class ="time"></span><div class="message"></div></div>');
             var timeString = tweet.created_at.toLocaleTimeString();
             var dateString = tweet.created_at.toLocaleDateString();
             var timeAgo = $.timeago(tweet.created_at);
             $tweet.children('.user').text('@' + tweet.user + ':');
             $tweet.children('.message').text(tweet.message + ' ');//dateString + ' ' + timeString);
-            $tweet.children('.time').text(timeAgo)
+            $tweet.children('.time').text(' ' + timeAgo)
             $tweet.appendTo($twittlerFeed)//.hide().slideDown(1000);
             index -= 1;
           }
