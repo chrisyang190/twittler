@@ -7,8 +7,7 @@ $(document).ready(function(){
         $twittlerFeed.appendTo($body);*/
         var $twittlerFeed = $('.twittlerFeed');
         //$twittlerFeed.html('');
-    //use code below and more to automatically add generated tweets
-
+    
         function generateTweetList(tweetArray){
           var index = tweetArray.length - 1;
           while(index >= 0){
@@ -20,12 +19,12 @@ $(document).ready(function(){
             $tweet.children('.user').text('@' + tweet.user + ':');
             $tweet.children('.message').text(tweet.message + ' ');//dateString + ' ' + timeString);
             $tweet.children('.time').text(timeAgo)
-            $tweet.appendTo($twittlerFeed);
+            $tweet.appendTo($twittlerFeed)//.hide().slideDown(1000);
             index -= 1;
           }
         }
 
-        function generateInitialHomeFeed(){
+        function generateHomeFeed(){
           $twittlerFeed.children('div').remove();
           generateTweetList(streams.home);
         }
@@ -40,21 +39,12 @@ $(document).ready(function(){
           generateTweetList(streams.users[username]);
         }
           //initial tweet list
-          generateInitialHomeFeed();
-
-          //generateTweetList(streams.home);
-        
-          
-          ///var homeArray = streams.home;
-          //generateHomeList();
-          //generateUserFeed('shawndrost');
-          //generateTweetList(streams.users[shawndrost]);
-          ///streams.home = [];
+          generateHomeFeed();
           
           var isPaused = false;
-          function conditionalGenerateInitialHomeFeed(){
+          function conditionalGenerateHomeFeed(){
             if(!isPaused) {
-              generateInitialHomeFeed();
+              generateHomeFeed();
             }
           }
 
@@ -64,11 +54,10 @@ $(document).ready(function(){
               return generateUserFeed.call(this, argument);
             }
           }*/
-        // $(document).ready(function() {
-          var setLive = setInterval(conditionalGenerateInitialHomeFeed, Math.random()*1500);
-        //});
-          ///var setLive = setInterval(conditionalGenerateUserFeed, Math.random()*1500);
+    ///var setLive = setInterval(conditionalGenerateUserFeed, Math.random()*1500);
 
+      //automatic new tweet generation
+      var setLive = setInterval(conditionalGenerateHomeFeed, Math.random()*1500);
 
        //if click on user
           $('body').on('click', '.utility', function(){
@@ -76,8 +65,8 @@ $(document).ready(function(){
             isPaused = false;
             //isPaused2 = true;
             $('.utility').hide();
-            generateInitialHomeFeed();
-            //var setLive = setInterval(generateInitialHomeFeed, Math.random()*1500);
+            generateHomeFeed();
+            //var setLive = setInterval(generateHomeFeed, Math.random()*1500);
             ///generateHomeList();
           }) 
 
@@ -88,12 +77,25 @@ $(document).ready(function(){
             var text = $(this).text()
             var sn = text.slice(1, text.length-1);
             generateUserFeed(sn);
-            $('.utility').show().text('Back to Home');
+            $('.utility').show().text('Back to Twittler Feed');
             //var setUserLive = setInterval(generateUserFeed, Math.random()*1500)
             
           });
 
-        //automatic new tweet generation
+      // Visitor tweet writing functions
+        streams.users['visitor'] = [];
+        $('body').on('click', '.submit', function(){
+          //writeTweet($('textarea').val());
+          var tweet = {};
+          tweet.created_at = new Date();
+          tweet.user = 'visitor';
+          tweet.message = $('textarea').val();
+          console.log(tweet.message);
+          streams.home.push(tweet);
+          streams.users['visitor'].push(tweet); 
+
+        });
+        
 
         /*function updateFeed(){
           var tweet = streams.home.shift();
